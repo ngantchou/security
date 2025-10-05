@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../domain/entities/watch_group_entity.dart';
 import '../../domain/usecases/create_watch_group.dart';
 import '../../domain/usecases/watch_group_usecases.dart';
 import 'watch_group_event.dart';
