@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/offline_indicator.dart';
+import '../../../../core/services/data_seed_service.dart';
 import '../../../../injection_container.dart' as di;
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
@@ -292,6 +294,16 @@ class HomePage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
                       ),
+                      const SizedBox(height: 12),
+                      OutlinedButton.icon(
+                        onPressed: () => _showSeedDataDialog(context),
+                        icon: const Icon(Icons.api),
+                        label: const Text('Seed Database (Dev)'),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.orange,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -301,5 +313,87 @@ class HomePage extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _showSeedDataDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Seed Database'),
+        content: const Text(
+          'This will populate your database with sample data:\n\n'
+          '• 5 sample users\n'
+          '• 15 alerts\n'
+          '• 2 watch groups\n'
+          '• 2 hospitals\n'
+          '• 3 blood donors\n'
+          '• 1 NGO\n'
+          '• 2 emergency resources\n'
+          '• 1 community fund\n\n'
+          'This is for development/testing only!',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(dialogContext);
+              _seedData(context);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orange,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Seed Data'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _seedData(BuildContext context) async {
+    // Show loading dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const AlertDialog(
+        content: Row(
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(width: 20),
+            Text('Seeding database...'),
+          ],
+        ),
+      ),
+    );
+
+    try {
+      final seedService = DataSeedService(FirebaseFirestore.instance);
+      await seedService.seedAllData();
+
+      if (!context.mounted) return;
+      Navigator.pop(context); // Close loading dialog
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('✅ Database seeded successfully!'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      Navigator.pop(context); // Close loading dialog
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('❌ Error seeding database: $e'),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 5),
+        ),
+      );
+    }
   }
 }
