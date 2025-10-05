@@ -146,49 +146,54 @@ class HomePage extends StatelessWidget {
                 ],
                 const SizedBox(height: 40),
 
-                // Status Card
+                // Seed Database Card (Dev Only)
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: AppTheme.cardColor,
+                    color: Colors.orange.shade50,
                     borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
+                    border: Border.all(color: Colors.orange.shade200),
                   ),
                   child: Column(
                     children: [
                       const Icon(
-                        Icons.check_circle_outline,
-                        color: AppTheme.accentColor,
+                        Icons.science,
+                        color: Colors.orange,
                         size: 48,
                       ),
                       const SizedBox(height: 16),
-                      Text(
-                        isGuest
-                            ? 'Visitor Mode Active'
-                            : 'Authentication Successful!',
-                        style: const TextStyle(
+                      const Text(
+                        'Development Mode',
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: Colors.orange,
                         ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        isGuest
-                            ? 'You can view alerts but cannot create them.\nSign in to unlock all features.'
-                            : 'The authentication system is working correctly.\nNext: Implement alert creation and map view.',
-                        style: const TextStyle(
-                          color: AppTheme.textSecondaryColor,
+                      const Text(
+                        'Populate database with sample data for testing',
+                        style: TextStyle(
+                          color: Colors.black87,
                           fontSize: 14,
                         ),
                         textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton.icon(
+                        onPressed: () => _showSeedDataDialog(context),
+                        icon: const Icon(Icons.api),
+                        label: const Text('Seed Database'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -292,16 +297,6 @@ class HomePage extends StatelessWidget {
                         icon: const Icon(Icons.shield),
                         label: const Text('Neighborhood Watch'),
                         style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      OutlinedButton.icon(
-                        onPressed: () => _showSeedDataDialog(context),
-                        icon: const Icon(Icons.api),
-                        label: const Text('Seed Database (Dev)'),
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.orange,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
                       ),
