@@ -56,3 +56,4 @@ app.*.map.json
 # Uncomment if you want to exclude Firebase config files
 # **/android/app/google-services.json
 # **/ios/Runner/GoogleService-Info.plist
+node_modules/
