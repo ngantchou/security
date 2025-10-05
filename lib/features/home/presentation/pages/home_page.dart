@@ -91,10 +91,11 @@ class HomePage extends StatelessWidget {
                 ),
             ],
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: Column(
+                children: [
                 // App Logo
                 Container(
                   width: 100,
@@ -309,6 +310,7 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
+          ),
           ),
         );
       },
