@@ -10,26 +10,15 @@ This directory contains scripts for populating the Firestore database with sampl
 
 ## Usage
 
-### 1. Configure Firebase Credentials
+### 1. Ensure Firebase Configuration Exists
 
-Edit `seed_data.dart` and update the Firebase configuration with your project credentials:
+The script automatically reads Firebase credentials from:
+- `android/app/google-services.json`
 
-```dart
-await Firebase.initializeApp(
-  options: const FirebaseOptions(
-    apiKey: 'YOUR_API_KEY',
-    appId: 'YOUR_APP_ID',
-    messagingSenderId: 'YOUR_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-  ),
-);
-```
-
-You can find these values in:
-- Firebase Console > Project Settings > General > Your apps
-- Or in `android/app/google-services.json`
-- Or in `ios/Runner/GoogleService-Info.plist`
+No manual configuration needed! The script will:
+- ✅ Automatically detect your Firebase project
+- ✅ Extract credentials from google-services.json
+- ✅ Initialize Firebase with the correct settings
 
 ### 2. Run the Seed Script
 

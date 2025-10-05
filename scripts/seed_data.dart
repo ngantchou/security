@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -8,16 +9,29 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   print('🌱 Starting data seeding for Safety Alert...\n');
 
-  // Initialize Firebase
+  // Load Firebase credentials from google-services.json
+  final configFile = File('android/app/google-services.json');
+  if (!configFile.existsSync()) {
+    print('❌ Error: google-services.json not found at android/app/google-services.json');
+    exit(1);
+  }
+
+  final configJson = json.decode(await configFile.readAsString());
+  final projectInfo = configJson['project_info'];
+  final client = configJson['client'][0];
+
+  // Initialize Firebase with credentials from google-services.json
   await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: 'YOUR_API_KEY',
-      appId: 'YOUR_APP_ID',
-      messagingSenderId: 'YOUR_SENDER_ID',
-      projectId: 'YOUR_PROJECT_ID',
-      storageBucket: 'YOUR_STORAGE_BUCKET',
+    options: FirebaseOptions(
+      apiKey: client['api_key'][0]['current_key'],
+      appId: client['client_info']['mobilesdk_app_id'],
+      messagingSenderId: projectInfo['project_number'],
+      projectId: projectInfo['project_id'],
+      storageBucket: projectInfo['storage_bucket'],
     ),
   );
+
+  print('✅ Firebase initialized with project: ${projectInfo['project_id']}\n');
 
   final firestore = FirebaseFirestore.instance;
   final random = Random();
