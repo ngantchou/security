@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "771349358607",
+    "project_id": "alertecameroun",
+    "storage_bucket": "alertecameroun.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771349358607:android:2aa8212917f5bef0485b7a",
+        "android_client_info": {
+          "package_name": "waves.digital.virgilant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3HhBmwSQVROmJ9YqEV_Xbzjr8SYQbwAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
