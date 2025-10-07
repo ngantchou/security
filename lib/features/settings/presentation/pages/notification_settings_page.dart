@@ -71,7 +71,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                 await _notificationService.setNotificationEnabled(value);
                 setState(() => _notificationsEnabled = value);
               },
-              activeColor: AppTheme.primaryColor,
+              activeThumbColor: AppTheme.primaryColor,
             ),
           ),
           const SizedBox(height: 16),
@@ -88,7 +88,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                       setState(() => _dndMode = value);
                     }
                   : null,
-              activeColor: AppTheme.warningColor,
+              activeThumbColor: AppTheme.warningColor,
             ),
           ),
           const SizedBox(height: 24),
@@ -173,7 +173,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                           setState(() => _soundEnabled = value);
                         }
                       : null,
-                  activeColor: AppTheme.primaryColor,
+                  activeThumbColor: AppTheme.primaryColor,
                 ),
                 const Divider(height: 1),
                 SwitchListTile(
@@ -186,7 +186,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                           setState(() => _vibrationEnabled = value);
                         }
                       : null,
-                  activeColor: AppTheme.primaryColor,
+                  activeThumbColor: AppTheme.primaryColor,
                 ),
               ],
             ),
@@ -238,7 +238,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                               });
                             }
                           : null,
-                      activeColor: AppTheme.primaryColor,
+                      activeThumbColor: AppTheme.primaryColor,
                     ),
                     if (dangerType != DangerType.values.last)
                       const Divider(height: 1),

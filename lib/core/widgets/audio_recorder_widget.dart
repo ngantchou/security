@@ -324,7 +324,7 @@ class _AudioRecorderWidgetState extends State<AudioRecorderWidget> {
                 ),
               ),
               Text(
-                '${_formatDuration(widget.maxDurationSeconds)}',
+                _formatDuration(widget.maxDurationSeconds),
                 style: const TextStyle(
                   fontSize: 12,
                   color: AppTheme.textSecondaryColor,
